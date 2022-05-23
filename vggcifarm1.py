@@ -10,8 +10,10 @@ import wandb
 wandb.init(project="vggcifarm1")
 
 
-device = torch.device("mps")
+# device = torch.device("mps")
 # device = torch.device("cpu")
+device = torch.device("cuda")
+
 print(device)
 vgg = torchvision.models.vgg11(pretrained=True)
 features = vgg.features
@@ -25,7 +27,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 
 num_epoch = 4
-batch_size = 32
+batch_size = 256
 learning_rate = 0.001
 
 trainset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transforms.ToTensor())
